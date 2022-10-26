@@ -4,18 +4,18 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'convertTemp',
 })
 export class ConvertTempPipe implements PipeTransform {
-  transform(value: number, ...args: string[]): string {
-    const [measurement] = args;
+  transform(value: number, measurement: string, decimal: number): string {
+
     let temp = '';
     switch (measurement.toLowerCase()) {
       case 'c':
-        return temp = (value - 273.15).toFixed(2) + ' °' + measurement.toUpperCase();
+        return temp = (value - 273.15).toFixed(decimal) + '°';
       case 'f':
-        return temp = (((value - 273.15) * 9 / 5)+32).toFixed(2) + ' °' + measurement.toUpperCase();
+        return temp = (((value - 273.15) * 9 / 5)+32).toFixed(decimal) + '°';
       case 'k':
-        return temp = value + ' °' + measurement.toUpperCase();
+        return temp = value + '';
       default:
-        return temp = value + ' K';
+        return temp = value + '';
     }
   }
 }
