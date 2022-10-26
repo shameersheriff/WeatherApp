@@ -1,3 +1,45 @@
 <div class="cotainer-fluid main-section-container">
-  <router-outlet></router-outlet>
+  <div class="text-center mt-4 pt-4">
+    <h1>{{weatherMap?.name}}</h1>
+  </div>
+
+  <div class="container" *ngIf="weatherMap">
+    <div class="row mb-4">
+      <div class="col-12">
+        <label>Main : {{weatherMap.weather[0].main}}</label><br>
+        <label>Description : {{weatherMap.weather[0].description}}</label><br>
+        <label>Timezone : {{weatherMap.timezone}}</label><br>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-6">
+        <label>Latitude : {{weatherMap.lat}}</label><br>
+        <label>Longitude : {{weatherMap.lon}}</label><br>
+        <label>Pressure : {{weatherMap.main.pressure}}</label><br>
+        <label>Humidity : {{weatherMap.main.humidity}}</label><br>
+        <label>Ground Level : {{weatherMap.main.grnd_level}}</label><br>
+        <label>Sea Level : {{weatherMap.main.sea_level}}</label><br>
+      </div>
+      <div class="col-6">
+        <label>Feels like : {{weatherMap.main.feels_like}}</label><br>
+        <label>Temp : {{weatherMap.main.temp}}</label><br>
+        <label>Temp Max : {{weatherMap.main.temp_max}}</label><br>
+        <label>Temp Min : {{weatherMap.main.temp_min}}</label><br>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-6">
+        <label>Wind speed : {{weatherMap.wind.speed}}</label><br>
+        <label>Wind direction : {{weatherMap.wind.deg}}</label><br>
+        <label>Wind gust : {{weatherMap.wind.gust}}</label><br>
+      </div>
+      <div class="col-6">
+        <label>Country : {{weatherMap.sys.country}}</label><br>
+        <label>Sunrise : {{weatherMap.sys.sunrise}}</label><br>
+        <label>Sunset : {{weatherMap.sys.sunset}}</label><br>
+      </div>
+    </div>
+  </div>
+
+
 </div>

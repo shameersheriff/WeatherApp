@@ -1,3 +1,4 @@
-<app-top-nav></app-top-nav>
-<app-main-section></app-main-section>
+<app-top-nav (onSearchChange)="onSearchChange($event)"></app-top-nav>
+<app-main-section [searchQuery]="searchQuery"></app-main-section>
+<router-outlet></router-outlet>
 <app-footer></app-footer>
