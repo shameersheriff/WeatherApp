@@ -11,8 +11,9 @@ export class WeatherMap {
   rain: any;
   clouds: any;
   sys: any;
-  timezone: string;
+  timezone: number;
   name: string;
+  visibility: number;
 
   constructor(data?: any) {
     this.lon = data.coord?.lon;
@@ -26,6 +27,7 @@ export class WeatherMap {
     this.sys = data.sys;
     this.timezone = data.timezone;
     this.name = data.name;
+    this.visibility = data.visibility;
   }
 
 }
