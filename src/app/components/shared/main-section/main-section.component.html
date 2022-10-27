@@ -1,5 +1,4 @@
 <div class="cotainer-fluid main-section-container">
-
   <div class="container text-center spinner" *ngIf="!weatherMap">
     <mat-spinner></mat-spinner>
   </div>
@@ -28,7 +27,6 @@
               <label class="w-100">{{item.main.temp | convertTemp:'C':0}}</label>
             </div>
           </div>
-
         </mat-card>
       </div>
     </div>
@@ -50,45 +48,19 @@
     </div>
     <div class="row mb-4">
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Humidity', icon: 'invert_colors', heading: '', value: weatherMap.main.humidity+'%'}]"></app-weather-info-card-single>
-
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Feels like', icon: 'mood', heading: '', value: weatherMap.main.feels_like | convertTemp:tempMeasurement:2}]"></app-weather-info-card-single>
-
     </div>
     <div class="row mb-4">
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4"  [weatherInfo]="[{label: 'Visibility', icon: 'opacity', heading: '', value: weatherMap.visibility | meterToKM}]"></app-weather-info-card-single>
-
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Pressure', icon: 'opacity', heading: '', value: weatherMap.main.pressure}]"></app-weather-info-card-single>
-
     </div>
     <div class="row mb-4">
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Sunrise', icon: 'wb_sunny', heading: '', value: weatherMap.sys.sunrise | utcToDate}, {label: 'Sunset', icon: 'brightness_2', heading: '', value: weatherMap.sys.sunset | utcToDate}]"></app-weather-info-card-single>
-
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Wind', icon: 'explore', heading: 'Speed(m/s)', value: weatherMap.wind.speed}, {label: '', icon: '', heading: 'Direction', value: weatherMap.wind.deg+'°'}, {label: '', icon: '', heading: 'Gust(m/s)', value: weatherMap.wind.gust}]"></app-weather-info-card-single>
-
     </div>
     <div class="row mb-4 pb-4">
-
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Coordinates', icon: 'gps_fixed', heading: 'Latitude', value: weatherMap.lat+''}, {label: '', icon: '', heading: 'Longitude', value: weatherMap.lon+''}]"></app-weather-info-card-single>
-
       <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: '', icon: 'network_cell', heading: 'Ground Level', value: weatherMap.main.grnd_level +' hPa'}, {label: '', icon: '', heading: 'Sea Level', value: weatherMap.main.sea_level + ' hPa'}]"></app-weather-info-card-single>
-
     </div>
-    <!-- <div class="row mb-4">
-      <div class="col-12">
-        <mat-card>
-          <mat-icon>cloud</mat-icon>
-          <mat-icon>filter_drama</mat-icon>
-          <mat-icon> add_location</mat-icon>
-          <mat-icon>ac_unit</mat-icon>
-          <mat-icon> local_florist</mat-icon>
-          <mat-icon> near_me</mat-icon>
-          <mat-icon> place</mat-icon>
-          <mat-icon> format_color_reset</mat-icon>
-          <br />
-          <label>Main : {{weatherMap.weather[0].main}}</label><br>
-          <label>Timezone : {{weatherMap.timezone | utcToDate}}</label><br>
-        </mat-card>
-      </div>
-    </div> -->
   </div>
 </div>
