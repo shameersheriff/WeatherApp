@@ -1,9 +1,10 @@
-<div class="cotainer-fluid top-nav-container">
+<div class="top-nav-spacing"></div>
+<div class="cotainer-fluid top-nav-container pt-4">
   <div class="row">
     <div class="col-12 search-container">
       <mat-form-field appearance="outline">
-        <mat-label>Search by city</mat-label>
-        <input matInput placeholder="Placeholder" [(ngModel)]="searchQuery" (keypress)="search($event)">
+        <mat-label>Type in a city name here</mat-label>
+        <input matInput placeholder="" [(ngModel)]="searchQuery" (keypress)="search($event)">
         <mat-icon matSuffix>search</mat-icon>
       </mat-form-field>
     </div>

@@ -16,7 +16,7 @@ export class TopNavComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  search(event: any){
+  search(event: any): void{
     if(event.charCode === 13){
       console.log(this.searchQuery);
       this.onSearchChange.emit(this.searchQuery);
