@@ -18,7 +18,7 @@ export class MainSectionComponent implements OnInit {
   tempMeasurement: string = 'C';
   structuredForecastList!: StructuredForecast[];
 
-  constructor(private weatherMapService: WeatherMapApiService) {}
+  constructor(private weatherMapService: WeatherMapApiService, ) {}
 
   ngOnInit(): void {
     this.search();
@@ -43,7 +43,6 @@ export class MainSectionComponent implements OnInit {
       this.forecast = new WeatherForecast(forecast);
       this.todaysForecast = new WeatherForecast(forecast);
       this.todaysForecast.list = this.todaysForecast.list.slice(0,8);
-      this.structuredForecastList = this.weatherMapService.getStructuredForecastByDay(this.forecast);
     });
   }
 }

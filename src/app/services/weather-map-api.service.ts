@@ -1,10 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { MatSnackBar } from '@angular/material/snack-bar';
 import { EMPTY, Observable } from 'rxjs';
 import { catchError, first } from 'rxjs/operators';
 import { environment } from 'src/environments/environment';
-import { StructuredForecast } from '../models/structured-forecast.model';
-import { WeatherForecast } from '../models/weather-forecast.model';
 import { ConvertTempPipe } from '../pipes/convert-temp.pipe';
 
 @Injectable({
@@ -17,7 +16,8 @@ export class WeatherMapApiService {
 
   constructor(
     protected http: HttpClient,
-    protected convertTemp: ConvertTempPipe
+    protected convertTemp: ConvertTempPipe,
+    private _snackBar: MatSnackBar
   ) {}
 
   searchByCity<T>(searchQuery: string) {
@@ -27,6 +27,7 @@ export class WeatherMapApiService {
         .get(url)
         .pipe(
           catchError((err) => {
+            this.openSnackBar("Error occured!", 'Close');
             subscriber.error(err);
             return EMPTY;
           }),
@@ -39,6 +40,10 @@ export class WeatherMapApiService {
           () => {}
         );
     });
+  }
+
+  openSnackBar(message: string, action: string) {
+    this._snackBar.open(message, action);
   }
 
   forecastByCity<T>(searchQuery: string) {
@@ -48,6 +53,7 @@ export class WeatherMapApiService {
         .get(url)
         .pipe(
           catchError((err) => {
+            this.openSnackBar("Error occured!", 'Close');
             subscriber.error(err);
             return EMPTY;
           }),
@@ -60,67 +66,6 @@ export class WeatherMapApiService {
           () => {}
         );
     });
-  }
-
-  getStructuredForecastByDay(forecast: WeatherForecast): StructuredForecast[] {
-    let structuredForecastList: StructuredForecast[] = [];
-    structuredForecastList.push({
-      day: this.getNameOfWeekDay(new Date(forecast.list[0].dt * 1000).getDay()),
-      minTemp: this.convertTemp.transform(
-        forecast.list[0].main.temp_min,
-        'C',
-        2
-      ),
-      maxTemp: this.convertTemp.transform(
-        forecast.list[0].main.temp_max,
-        'C',
-        2
-      ),
-    });
-    for (let x = 0; x < forecast.list.length; x++) {
-      const element = forecast.list[x];
-      for (let y = 0; y < structuredForecastList.length; y++) {
-        const structuredElement = structuredForecastList[y];
-        if (
-          structuredElement.day ===
-          this.getNameOfWeekDay(new Date(element.dt * 1000).getDay())
-        ) {
-          let minTemp = this.convertTemp.transform(
-            element.main.temp_min,
-            'C',
-            2
-          );
-          let maxTemp = this.convertTemp.transform(
-            element.main.temp_max,
-            'C',
-            2
-          );
-          if (structuredElement.minTemp > minTemp) {
-            structuredElement.minTemp = minTemp;
-          }
-          if (structuredElement.maxTemp < maxTemp) {
-            structuredElement.maxTemp = maxTemp;
-          }
-        }
-        else{
-          structuredForecastList.push({
-            day: this.getNameOfWeekDay(new Date(element.dt * 1000).getDay()),
-            minTemp: this.convertTemp.transform(
-              element.main.temp_min,
-              'C',
-              2
-            ),
-            maxTemp: this.convertTemp.transform(
-              element.main.temp_max,
-              'C',
-              2
-            ),
-          });
-        }
-        continue;
-      }
-    }
-    return structuredForecastList;
   }
 
   getNameOfWeekDay(day: number): string {
@@ -144,6 +89,7 @@ export class WeatherMapApiService {
         .get(url)
         .pipe(
           catchError((err) => {
+            this.openSnackBar("Error occured!", 'Close');
             subscriber.error(err);
             return EMPTY;
           }),

@@ -14,6 +14,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatIconModule } from '@angular/material/icon';
 import { MatCardModule } from '@angular/material/card';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { WeatherMapApiService } from './services/weather-map-api.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -46,6 +47,7 @@ import { WeatherInfoCardSingleComponent } from './components/shared/main-section
     MatInputModule,
     MatIconModule,
     MatCardModule,
+    MatSnackBarModule,
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule
