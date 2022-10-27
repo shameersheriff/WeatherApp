@@ -1,7 +1,6 @@
-import { Weather } from "./weather.model";
+import { Weather } from './weather.model';
 
 export class WeatherMap {
-
   lon: number;
   lat: number;
   weather: Weather[];
@@ -14,6 +13,7 @@ export class WeatherMap {
   timezone: number;
   name: string;
   visibility: number;
+  dt: number;
 
   constructor(data?: any) {
     this.lon = data.coord?.lon;
@@ -28,6 +28,6 @@ export class WeatherMap {
     this.timezone = data.timezone;
     this.name = data.name;
     this.visibility = data.visibility;
+    this.dt = data.dt;
   }
-
 }

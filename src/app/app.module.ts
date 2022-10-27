@@ -20,6 +20,8 @@ import { HttpClientModule } from '@angular/common/http';
 import { UTCToDatePipe } from './pipes/utcto-date.pipe';
 import { ConvertTempPipe } from './pipes/convert-temp.pipe';
 import { MeterToKMPipe } from './pipes/meter-to-km.pipe';
+import { SecondsToDayPipe } from './pipes/seconds-to-day.pipe';
+import { WeatherInfoCardSingleComponent } from './components/shared/main-section/weather-info-card-single/weather-info-card-single.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +32,8 @@ import { MeterToKMPipe } from './pipes/meter-to-km.pipe';
     UTCToDatePipe,
     ConvertTempPipe,
     MeterToKMPipe,
+    SecondsToDayPipe,
+    WeatherInfoCardSingleComponent,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +51,8 @@ import { MeterToKMPipe } from './pipes/meter-to-km.pipe';
     HttpClientModule
   ],
   providers: [
-    WeatherMapApiService
+    WeatherMapApiService,
+    ConvertTempPipe
   ],
   bootstrap: [AppComponent],
 })

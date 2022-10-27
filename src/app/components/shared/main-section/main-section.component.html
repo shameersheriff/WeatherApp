@@ -1,45 +1,94 @@
 <div class="cotainer-fluid main-section-container">
-  <div class="text-center mt-4 pt-4">
-    <h1>{{weatherMap?.name}}</h1>
-  </div>
 
+  <div class="container text-center spinner" *ngIf="!weatherMap">
+    <mat-spinner></mat-spinner>
+  </div>
   <div class="container" *ngIf="weatherMap">
+    <div class="row mb-4 pb-4">
+      <div class="text-center mt-4 pt-4">
+        <mat-card>
+          <h1>{{weatherMap?.name}}</h1>
+          <label class="currentTemp">{{weatherMap.main.temp | convertTemp:tempMeasurement:0}}</label><br>
+          <label>{{weatherMap.weather[0].description}}</label><br>
+          <label class="mr-2">H:{{weatherMap.main.temp_max | convertTemp:tempMeasurement:0}}</label>&nbsp;
+          <label>L:{{weatherMap.main.temp_min | convertTemp:tempMeasurement:0}}</label><br>
+        </mat-card>
+      </div>
+    </div>
     <div class="row mb-4">
+      <div class="col-md-12 col-xs-12 mb-sm-4">
+        <mat-card>
+          <span>
+            <mat-icon>tv</mat-icon>
+            <label class="cardLabel">Today's Forecast</label>
+          </span>
+          <div class="row todays-forecast">
+            <div class="col-xs-3 col-md-1  text-center" *ngFor="let item of todaysForecast.list">
+              <label class="w-100">{{item.dt | utcToDate}}</label>
+              <label class="w-100">{{item.main.temp | convertTemp:'C':0}}</label>
+            </div>
+          </div>
+
+        </mat-card>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <div class="col-md-12 col-xs-12 mb-sm-4">
+        <mat-card>
+          <span>
+            <mat-icon>tv</mat-icon>
+            <label class="cardLabel">5-Day Forecast</label>
+          </span>
+          <div class="row todays-forecast">
+            <div class="col-xs-3 col-md-1  text-center" *ngFor="let item of forecast.list">
+              <label class="w-100">{{item.dt | utcToDate}}</label>
+              <label class="w-100">{{item.main.temp | convertTemp:'C':0}}</label>
+            </div>
+          </div>
+        </mat-card>
+      </div>
+    </div>
+    <div class="row mb-4">
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Humidity', icon: 'invert_colors', heading: '', value: weatherMap.main.humidity+'%'}]"></app-weather-info-card-single>
+
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Feels like', icon: 'mood', heading: '', value: weatherMap.main.feels_like | convertTemp:tempMeasurement:2}]"></app-weather-info-card-single>
+
+    </div>
+    <div class="row mb-4">
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4"  [weatherInfo]="[{label: 'Visibility', icon: 'opacity', heading: '', value: weatherMap.visibility | meterToKM}]"></app-weather-info-card-single>
+
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Pressure', icon: 'opacity', heading: '', value: weatherMap.main.pressure}]"></app-weather-info-card-single>
+
+    </div>
+    <div class="row mb-4">
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Sunrise', icon: 'wb_sunny', heading: '', value: weatherMap.sys.sunrise | utcToDate}, {label: 'Sunset', icon: 'brightness_2', heading: '', value: weatherMap.sys.sunset | utcToDate}]"></app-weather-info-card-single>
+
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Wind', icon: 'explore', heading: 'Speed(m/s)', value: weatherMap.wind.speed}, {label: '', icon: '', heading: 'Direction', value: weatherMap.wind.deg+'°'}, {label: '', icon: '', heading: 'Gust(m/s)', value: weatherMap.wind.gust}]"></app-weather-info-card-single>
+
+    </div>
+    <div class="row mb-4 pb-4">
+
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: 'Coordinates', icon: 'gps_fixed', heading: 'Latitude', value: weatherMap.lat+''}, {label: '', icon: '', heading: 'Longitude', value: weatherMap.lon+''}]"></app-weather-info-card-single>
+
+      <app-weather-info-card-single class="col-md-6 col-xs-12 mb-sm-4" [weatherInfo]="[{label: '', icon: 'network_cell', heading: 'Ground Level', value: weatherMap.main.grnd_level +' hPa'}, {label: '', icon: '', heading: 'Sea Level', value: weatherMap.main.sea_level + ' hPa'}]"></app-weather-info-card-single>
+
+    </div>
+    <!-- <div class="row mb-4">
       <div class="col-12">
-        <label>Main : {{weatherMap.weather[0].main}}</label><br>
-        <label>Description : {{weatherMap.weather[0].description}}</label><br>
-        <label>Timezone : {{weatherMap.timezone}}</label><br>
+        <mat-card>
+          <mat-icon>cloud</mat-icon>
+          <mat-icon>filter_drama</mat-icon>
+          <mat-icon> add_location</mat-icon>
+          <mat-icon>ac_unit</mat-icon>
+          <mat-icon> local_florist</mat-icon>
+          <mat-icon> near_me</mat-icon>
+          <mat-icon> place</mat-icon>
+          <mat-icon> format_color_reset</mat-icon>
+          <br />
+          <label>Main : {{weatherMap.weather[0].main}}</label><br>
+          <label>Timezone : {{weatherMap.timezone | utcToDate}}</label><br>
+        </mat-card>
       </div>
-    </div>
-    <div class="row mb-4">
-      <div class="col-6">
-        <label>Latitude : {{weatherMap.lat}}</label><br>
-        <label>Longitude : {{weatherMap.lon}}</label><br>
-        <label>Pressure : {{weatherMap.main.pressure}}</label><br>
-        <label>Humidity : {{weatherMap.main.humidity}}</label><br>
-        <label>Ground Level : {{weatherMap.main.grnd_level}}</label><br>
-        <label>Sea Level : {{weatherMap.main.sea_level}}</label><br>
-      </div>
-      <div class="col-6">
-        <label>Feels like : {{weatherMap.main.feels_like}}</label><br>
-        <label>Temp : {{weatherMap.main.temp}}</label><br>
-        <label>Temp Max : {{weatherMap.main.temp_max}}</label><br>
-        <label>Temp Min : {{weatherMap.main.temp_min}}</label><br>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-6">
-        <label>Wind speed : {{weatherMap.wind.speed}}</label><br>
-        <label>Wind direction : {{weatherMap.wind.deg}}</label><br>
-        <label>Wind gust : {{weatherMap.wind.gust}}</label><br>
-      </div>
-      <div class="col-6">
-        <label>Country : {{weatherMap.sys.country}}</label><br>
-        <label>Sunrise : {{weatherMap.sys.sunrise}}</label><br>
-        <label>Sunset : {{weatherMap.sys.sunset}}</label><br>
-      </div>
-    </div>
+    </div> -->
   </div>
-
-
 </div>

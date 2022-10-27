@@ -1,4 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges } from '@angular/core';
+import { combineLatest } from 'rxjs';
+import { StructuredForecast } from 'src/app/models/structured-forecast.model';
+import { WeatherForecast } from 'src/app/models/weather-forecast.model';
 import { WeatherMap } from 'src/app/models/weather-map.model';
 import { WeatherMapApiService } from 'src/app/services/weather-map-api.service';
 
@@ -10,6 +13,10 @@ import { WeatherMapApiService } from 'src/app/services/weather-map-api.service';
 export class MainSectionComponent implements OnInit {
   @Input() searchQuery: string = '';
   weatherMap!: WeatherMap;
+  forecast!: WeatherForecast;
+  todaysForecast!: WeatherForecast;
+  tempMeasurement: string = 'C';
+  structuredForecastList!: StructuredForecast[];
 
   constructor(private weatherMapService: WeatherMapApiService) {}
 
@@ -17,32 +24,38 @@ export class MainSectionComponent implements OnInit {
     this.search();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (!changes.searchQuery.firstChange) {
       this.searchQuery = changes.searchQuery.currentValue;
       this.search();
     }
   }
 
-  search() {
+  search(): void {
     if (!this.searchQuery) {
       this.searchQuery = 'colombo';
     }
-    this.weatherMapService
-      .searchByCity(this.searchQuery)
-      .subscribe((data: any) => {
-        this.weatherMap = new WeatherMap(data);
-      });
+    combineLatest([
+      this.weatherMapService.searchByCity(this.searchQuery),
+      this.weatherMapService.forecastByCity(this.searchQuery),
+    ]).subscribe(([weatherData, forecast]) => {
+      this.weatherMap = new WeatherMap(weatherData);
+      this.forecast = new WeatherForecast(forecast);
+      this.todaysForecast = new WeatherForecast(forecast);
+      this.todaysForecast.list = this.todaysForecast.list.slice(0,8);
+      this.structuredForecastList = this.weatherMapService.getStructuredForecastByDay(this.forecast);
+    });
   }
 
-  defaultLocation() {
+  defaultLocation(): void {
     if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(this.showPosition);
     } else {
       console.log('Geolocation is not supported by this browser.');
     }
   }
-  showPosition(position: any) {
+
+  showPosition(position: any): void {
     console.log(
       'Latitude: ' +
         position.coords.latitude +
@@ -51,7 +64,6 @@ export class MainSectionComponent implements OnInit {
     );
     this.weatherMapService
       .searchByCoordinates(position.coords.latitude, position.coords.longitude)
-      .subscribe((data: any) => {
-      });
+      .subscribe((data: any) => {});
   }
 }

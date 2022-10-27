@@ -1,0 +1,21 @@
+<mat-card>
+
+  <div class="row">
+    <div *ngFor="let item of weatherInfo" class="
+    {{weatherInfo.length === 1 ? 'col-xs-12 col-md-12 mt-sm-12 mt-md-2' : ''}}
+    {{weatherInfo.length === 2 ? 'col-xs-12 col-md-6 mt-sm-6 mt-md-2' : ''}}
+    {{weatherInfo.length === 3 ? 'col-xs-12 col-md-4 mt-sm-4 mt-md-2' : ''}}
+    {{weatherInfo.length === 4 ? 'col-xs-12 col-md-3 mt-sm-3 mt-md-2' : ''}}
+    {{weatherInfo.length > 4 ? 'col-xs-12 col-md-6 mt-sm-6 mt-md-2' : ''}}
+    col-xs-12 col-md-4 mt-sm-4 mt-md-2
+    ">
+      <span>
+        <mat-icon class="mb-3">{{item.icon}}</mat-icon>
+        <label class="cardLabel">{{item.label}}</label>
+      </span>
+      <br>
+      <label class="mb-2" *ngIf="item.heading">{{item.heading}}<br></label>
+      <label class="cardValue w-100">{{item.value}}</label>
+    </div>
+  </div>
+</mat-card>

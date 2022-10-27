@@ -1,4 +1,32 @@
 .main-section-container{
-  height: 80%;
-  background-color: lightpink;
+  background-color: transparent;
+}
+
+.divider{
+  border-bottom: 1px solid lightgrey;
+}
+
+.spinner{
+  display: flex;
+  justify-content: center;
+}
+
+.currentTemp{
+  font-size: 4rem;
+}
+
+.cardLabel{
+  position: relative;
+  bottom: 6px;
+  margin-left: 5px;
+}
+
+.cardValue{
+  font-size: 2.5rem;
+  line-height: 2rem;
+}
+
+.todays-forecast{
+  display: flex;
+  justify-content: center;
 }
