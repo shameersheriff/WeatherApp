@@ -22,7 +22,7 @@
             <label class="cardLabel">Today's Forecast</label>
           </span>
           <div class="row todays-forecast">
-            <div class="col-xs-3 col-md-1  text-center" *ngFor="let item of todaysForecast.list">
+            <div class="col-xs-3 col-md-1  text-center forecast-item m-1" *ngFor="let item of todaysForecast.list">
               <label class="w-100">{{item.dt | utcToDate}}</label>
               <label class="w-100">{{item.main.temp | convertTemp:'C':0}}</label>
             </div>
@@ -38,7 +38,8 @@
             <label class="cardLabel">5-Day Forecast</label>
           </span>
           <div class="row todays-forecast">
-            <div class="col-xs-3 col-md-1  text-center" *ngFor="let item of forecast.list">
+            <div class="col-xs-3 col-md-1  text-center forecast-item m-1" *ngFor="let item of forecast.list">
+              <label class="w-100">{{item.dt | secondsToDay}}</label>
               <label class="w-100">{{item.dt | utcToDate}}</label>
               <label class="w-100">{{item.main.temp | convertTemp:'C':0}}</label>
             </div>
